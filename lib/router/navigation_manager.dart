@@ -44,7 +44,7 @@ class NavigationManager {
               path: categoryPath,
               pageBuilder: (context, GoRouterState state) {
                 return MaterialPage(
-                  child: const CategoryWidget(),
+                  child: CategoryWidget(),
                   key: state.pageKey,
                 );
               },
