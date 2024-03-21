@@ -8,4 +8,7 @@ abstract class JokeApiService extends ChopperService {
 
   @Get(path: "/jokes/random")
   Future<Response> fetchRandomJoke(@Query("category") String category);
+
+  @Get(path: "/jokes/search")
+  Future<Response> searchJokes(@Query("query") String query);
 }

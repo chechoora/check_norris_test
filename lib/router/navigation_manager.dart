@@ -58,7 +58,7 @@ class NavigationManager {
               path: searchPath,
               pageBuilder: (context, state) {
                 return MaterialPage(
-                  child: const SearchWidget(),
+                  child: SearchWidget(),
                   key: state.pageKey,
                 );
               },
