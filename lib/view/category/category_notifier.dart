@@ -1,9 +1,9 @@
 import 'package:check_norris_test/domain/category/category_repository.dart';
-import 'package:check_norris_test/view/category/state/category_state.dart';
+import 'package:check_norris_test/view/category/category_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategoryNotifierNotifier extends StateNotifier<CategoryState> {
-  CategoryNotifierNotifier({
+class CategoryNotifier extends StateNotifier<CategoryState> {
+  CategoryNotifier({
     required this.categoryRepository,
   }) : super(LoadingState()) {
     _fetchCategories();

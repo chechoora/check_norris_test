@@ -1,7 +1,7 @@
 import 'package:check_norris_test/view/category/category_widget.dart';
 import 'package:check_norris_test/view/favorites_widget/favorites_widget.dart';
 import 'package:check_norris_test/view/home_navigation_page.dart';
-import 'package:check_norris_test/view/randomJoke/random_joke_widget.dart';
+import 'package:check_norris_test/view/random_joke/random_joke_widget.dart';
 import 'package:check_norris_test/view/search/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +31,7 @@ class NavigationManager {
   static const String searchPath = '/search';
   static const String favoritesPath = '/favorites';
 
-  static const String randomJokePath = '/randomJoke';
+  static const String randomJokePath = '/random_joke';
 
   static StatefulShellRoute homeNavigationRoute() {
     return StatefulShellRoute.indexedStack(
@@ -99,8 +99,11 @@ class NavigationManager {
     return GoRoute(
       path: randomJokePath,
       pageBuilder: (context, state) {
+        final category = state.extra as String;
         return MaterialPage(
-          child: const RandomJokeWidget(),
+          child: RandomJokeWidget(
+            category: category,
+          ),
           key: state.pageKey,
         );
       },
