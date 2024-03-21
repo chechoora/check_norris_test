@@ -30,6 +30,10 @@ class JokeRepository {
     return finalList;
   }
 
+  Future<List<JokeItem>> fetchStoredJokes() {
+    return jokeDbSource.fetchSavedJokes();
+  }
+
   Future<JokeItem> addToFavorite(JokeItem joke) {
     return jokeDbSource.addToFavorite(joke);
   }

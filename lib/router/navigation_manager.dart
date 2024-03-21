@@ -1,5 +1,5 @@
 import 'package:check_norris_test/view/category/category_widget.dart';
-import 'package:check_norris_test/view/favorites_widget/favorites_widget.dart';
+import 'package:check_norris_test/view/favorites_widget/favorite_widget.dart';
 import 'package:check_norris_test/view/home_navigation_page.dart';
 import 'package:check_norris_test/view/random_joke/random_joke_widget.dart';
 import 'package:check_norris_test/view/search/search_widget.dart';
@@ -72,7 +72,7 @@ class NavigationManager {
               path: favoritesPath,
               pageBuilder: (context, state) {
                 return MaterialPage(
-                  child: const FavoritesWidget(),
+                  child: FavoriteWidget(),
                   key: state.pageKey,
                 );
               },
