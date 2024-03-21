@@ -15,4 +15,22 @@ class JokeDbSource {
     final items = await jokeDbService.fetchSavedJokes();
     return jokeDbMapper.mapJokes(items);
   }
+
+  Future<JokeItem> addToFavorite(JokeItem joke) async {
+    final result = await jokeDbService.saveJoke(joke);
+    return jokeDbMapper.mapJoke(await jokeDbService.fetchJokeByServerId(joke.serverId));
+  }
+
+  Future<JokeItem> removeFromFavorite(JokeItem joke) async {
+    final localId = joke.localId;
+    if (localId == null) {
+      return joke;
+    }
+    // TODO add error
+    final result = await jokeDbService.deleteJoke(localId);
+    return JokeItem(
+      serverId: joke.serverId,
+      text: joke.text,
+    );
+  }
 }

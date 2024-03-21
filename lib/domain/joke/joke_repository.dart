@@ -29,4 +29,12 @@ class JokeRepository {
     }
     return finalList;
   }
+
+  Future<JokeItem> addToFavorite(JokeItem joke) {
+    return jokeDbSource.addToFavorite(joke);
+  }
+
+  Future<JokeItem> removeFromFavorite(JokeItem joke) {
+    return jokeDbSource.removeFromFavorite(joke);
+  }
 }

@@ -30,4 +30,15 @@ class JokeDbService {
         .go();
     return result >= 0;
   }
+
+  Future<JokeTableData> fetchJokeByServerId(String serverId) async {
+    return (await (appDatabase.select(appDatabase.jokeTable)
+              ..where(
+                (table) {
+                  return table.serverId.isValue(serverId);
+                },
+              ))
+            .get())
+        .first;
+  }
 }

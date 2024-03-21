@@ -20,20 +20,44 @@ class CategoryWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(notifier);
     return Scaffold(
-      body: _buildBody(state),
+      body: _DisplayWidget(state: state),
     );
   }
+}
 
-  Widget _buildBody(CategoryState state) {
+class _DisplayWidget extends StatelessWidget {
+  const _DisplayWidget({
+    required this.state,
+  });
+
+  final CategoryState state;
+
+  @override
+  Widget build(BuildContext context) {
     if (state is LoadingState) {
       return const SimpleLoadingWidget();
     } else if (state is DataState) {
-      final categories = state.categories;
-      return ListView.separated(
+      final categories = (state as DataState).categories;
+      return ListView.builder(
         itemBuilder: (context, index) {
           final category = categories[index];
           return InkWell(
-            child: Text(category.name),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).primaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Text(
+                category.name,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
             onTap: () {
               context.push(
                 NavigationManager.randomJokePath,
@@ -41,9 +65,6 @@ class CategoryWidget extends ConsumerWidget {
               );
             },
           );
-        },
-        separatorBuilder: (context, index) {
-          return const Divider();
         },
         itemCount: categories.length,
       );

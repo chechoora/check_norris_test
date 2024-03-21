@@ -13,4 +13,12 @@ class JokeDbMapper {
         )
         .toList();
   }
+
+  JokeItem mapJoke(JokeTableData jokeDb) {
+    return JokeItem(
+      serverId: jokeDb.serverId,
+      text: jokeDb.value,
+      localId: jokeDb.id,
+    );
+  }
 }

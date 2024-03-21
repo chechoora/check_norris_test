@@ -17,6 +17,9 @@ class _HomeNavigationPageState extends State<HomeNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Chuck Norris Demo'),
+      ),
       body: SafeArea(
         child: widget.child,
       ),
