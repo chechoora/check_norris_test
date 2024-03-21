@@ -1,23 +1,32 @@
-import 'package:check_norris_test/data/api/joke/joke_api_mapper.dart';
-import 'package:check_norris_test/data/api/joke/joke_api_service.dart';
-import 'package:check_norris_test/domain/model/joke.dart';
+import 'package:check_norris_test/domain/joke/joke_api_source.dart';
+import 'package:check_norris_test/domain/joke/joke_db_source.dart';
+import 'package:check_norris_test/domain/model/joke_item.dart';
+import 'package:collection/collection.dart';
 
 class JokeRepository {
-  final JokeApiService jokeApiService;
-  final JokeApiMapper jokeApiMapper;
+  final JokeApiSource jokeApiSource;
+  final JokeDbSource jokeDbSource;
 
   JokeRepository({
-    required this.jokeApiService,
-    required this.jokeApiMapper,
+    required this.jokeApiSource,
+    required this.jokeDbSource,
   });
 
-  Future<Joke> fetchRandomJokeByCategory(String category) async {
-    final response = await jokeApiService.fetchRandomJoke(category);
-    return jokeApiMapper.mapRandomJoke(response);
+  Future<JokeItem> fetchRandomJokeByCategory(String category) async {
+    final storedJokes = await jokeDbSource.fetchSavedJokes();
+    final serverJoke = await jokeApiSource.fetchRandomJokeByCategory(category);
+    final storedJoke = storedJokes.firstWhereOrNull((joke) => joke.serverId == serverJoke.serverId);
+    return storedJoke ?? serverJoke;
   }
 
-  Future<List<Joke>> searchJokes(String text) async {
-    final response = await jokeApiService.searchJokes(text);
-    return jokeApiMapper.mapFromSearchJokes(response);
+  Future<List<JokeItem>> searchJokes(String text) async {
+    final storedJokes = await jokeDbSource.fetchSavedJokes();
+    final serverJokes = await jokeApiSource.searchJokes(text);
+    final finalList = <JokeItem>[];
+    for (var serverJoke in serverJokes) {
+      final storedJoke = storedJokes.firstWhereOrNull((joke) => joke.serverId == serverJoke.serverId);
+      finalList.add(storedJoke ?? serverJoke);
+    }
+    return finalList;
   }
 }

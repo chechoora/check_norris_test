@@ -40,6 +40,11 @@ dependencies:
   riverpod_annotation: ^2.3.5
   flutter_spinkit: ^5.2.0
   chopper: ^7.2.0
+  drift: ^2.15.0
+  sqlite3_flutter_libs: ^0.5.0
+  path_provider: ^2.0.0
+  path: ^1.8.3
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:
@@ -51,11 +56,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
-  build_runner: ^2.4.6
+  build_runner: ^2.4.8
   chopper_generator: ^7.2.0
   custom_lint:
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
+
+  drift_dev: ^2.15.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

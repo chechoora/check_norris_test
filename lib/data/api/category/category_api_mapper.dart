@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:check_norris_test/domain/model/category.dart';
 import 'package:chopper/chopper.dart';
 

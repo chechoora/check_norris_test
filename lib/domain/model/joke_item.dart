@@ -1,14 +1,12 @@
-class Joke {
-  final String id;
+class JokeItem {
+  final String serverId;
   final String text;
   final int? localId;
-  final bool isFavorite;
 
-  Joke({
-    required this.id,
+  JokeItem({
+    required this.serverId,
     required this.text,
     this.localId,
-    this.isFavorite = false,
   });
 
   bool get isStored => localId != null;
