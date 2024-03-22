@@ -13,7 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class SearchWidget extends ConsumerWidget {
   SearchWidget({super.key});
 
-  late final notifier = StateNotifierProvider.autoDispose<SearchNotifier, SearchState>((ref) {
+  late final provider = StateNotifierProvider.autoDispose<SearchNotifier, SearchState>((ref) {
     return SearchNotifier(
       jokeRepository: ref.read(jokeRepository),
       favoriteListener: ref.read(jokeFavoriteListener),
@@ -22,26 +22,26 @@ class SearchWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(notifier);
+    final state = ref.watch(provider);
     return Scaffold(
       body: Column(
         children: [
           SearchBarWidget(
             onSubmitted: (newText) {
-              ref.read(notifier.notifier).searchJokes(newText);
+              ref.read(provider.notifier).searchJokes(newText);
             },
           ),
           Expanded(
             child: _DisplayWidget(
               state: state,
               onAddToFavorite: (joke) {
-                ref.read(notifier.notifier).addToFavorite(joke);
+                ref.read(provider.notifier).addToFavorite(joke);
               },
               onRemoveFromFavorite: (joke) {
-                ref.read(notifier.notifier).removeFromFavorite(joke);
+                ref.read(provider.notifier).removeFromFavorite(joke);
               },
               onRetryRequested: () {
-                ref.read(notifier.notifier).retrySearch();
+                ref.read(provider.notifier).retrySearch();
               },
             ),
           ),

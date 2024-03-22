@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 class CategoryWidget extends ConsumerWidget {
   CategoryWidget({super.key});
 
-  final notifier = StateNotifierProvider.autoDispose<CategoryNotifier, CategoryState>((ref) {
+  final provider = StateNotifierProvider.autoDispose<CategoryNotifier, CategoryState>((ref) {
     return CategoryNotifier(
       categoryRepository: ref.read(categoryRepository),
     );
@@ -19,12 +19,12 @@ class CategoryWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(notifier);
+    final state = ref.watch(provider);
     return Scaffold(
       body: _DisplayWidget(
         state: state,
         onRetryRequested: () {
-          ref.read(notifier.notifier).fetchCategories();
+          ref.read(provider.notifier).fetchCategories();
         },
       ),
     );

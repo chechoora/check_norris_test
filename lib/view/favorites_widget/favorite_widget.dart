@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class FavoriteWidget extends ConsumerWidget {
   FavoriteWidget({super.key});
 
-  late final notifier = StateNotifierProvider.autoDispose<FavoriteNotifier, FavoriteState>((ref) {
+  late final provider = StateNotifierProvider.autoDispose<FavoriteNotifier, FavoriteState>((ref) {
     return FavoriteNotifier(
       jokeRepository: ref.read(jokeRepository),
       favoriteListener: ref.read(jokeFavoriteListener),
@@ -18,12 +18,12 @@ class FavoriteWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(notifier);
+    final state = ref.watch(provider);
     return Scaffold(
       body: _DisplayWidget(
         state: state,
         onRemoveFromFavorite: (joke) {
-          ref.read(notifier.notifier).removeFromFavorite(joke);
+          ref.read(provider.notifier).removeFromFavorite(joke);
         },
       ),
     );

@@ -16,7 +16,7 @@ class RandomJokeWidget extends ConsumerWidget {
 
   final String category;
 
-  late final notifier = StateNotifierProvider.autoDispose<RandomJokeNotifier, RandomJokeState>((ref) {
+  late final provider = StateNotifierProvider.autoDispose<RandomJokeNotifier, RandomJokeState>((ref) {
     return RandomJokeNotifier(
       category: category,
       jokeRepository: ref.read(jokeRepository),
@@ -25,7 +25,7 @@ class RandomJokeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(notifier);
+    final state = ref.watch(provider);
     return Scaffold(
       appBar: AppBar(
         title: Text(category),
@@ -33,13 +33,13 @@ class RandomJokeWidget extends ConsumerWidget {
       body: _DisplayWidget(
         state: state,
         onAddToFavorite: (joke) {
-          ref.read(notifier.notifier).addToFavorite(joke);
+          ref.read(provider.notifier).addToFavorite(joke);
         },
         onRemoveFromFavorite: (joke) {
-          ref.read(notifier.notifier).removeFromFavorite(joke);
+          ref.read(provider.notifier).removeFromFavorite(joke);
         },
         onRetryRequested: () {
-          ref.read(notifier.notifier).fetchRandomJoke();
+          ref.read(provider.notifier).fetchRandomJoke();
         },
       ),
     );

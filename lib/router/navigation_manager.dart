@@ -7,38 +7,36 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class NavigationManager {
-  static void init() {
+  static const String categoryPath = '/categoryPath';
+  static const String searchPath = '/search';
+  static const String favoritesPath = '/favorites';
+  static const String randomJokePath = '/random_joke';
+
+  late final GoRouter router;
+  final GlobalKey<NavigatorState> _parentNavigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _categoryTabNavigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _searchTabNavigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _favoritesTabNavigatorKey = GlobalKey<NavigatorState>();
+
+  NavigationManager() {
     final routes = [
-      homeNavigationRoute(),
-      randomJoke(),
+      _homeNavigationRoute(),
+      _randomJoke(),
     ];
 
     router = GoRouter(
-      navigatorKey: parentNavigatorKey,
+      navigatorKey: _parentNavigatorKey,
       initialLocation: categoryPath,
       routes: routes,
     );
   }
 
-  static late final GoRouter router;
-
-  static final GlobalKey<NavigatorState> parentNavigatorKey = GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> categoryTabNavigatorKey = GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> searchTabNavigatorKey = GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> favoritesTabNavigatorKey = GlobalKey<NavigatorState>();
-
-  static const String categoryPath = '/categoryPath';
-  static const String searchPath = '/search';
-  static const String favoritesPath = '/favorites';
-
-  static const String randomJokePath = '/random_joke';
-
-  static StatefulShellRoute homeNavigationRoute() {
+  StatefulShellRoute _homeNavigationRoute() {
     return StatefulShellRoute.indexedStack(
-      parentNavigatorKey: parentNavigatorKey,
+      parentNavigatorKey: _parentNavigatorKey,
       branches: [
         StatefulShellBranch(
-          navigatorKey: categoryTabNavigatorKey,
+          navigatorKey: _categoryTabNavigatorKey,
           routes: [
             GoRoute(
               path: categoryPath,
@@ -52,7 +50,7 @@ class NavigationManager {
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: searchTabNavigatorKey,
+          navigatorKey: _searchTabNavigatorKey,
           routes: [
             GoRoute(
               path: searchPath,
@@ -66,7 +64,7 @@ class NavigationManager {
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: favoritesTabNavigatorKey,
+          navigatorKey: _favoritesTabNavigatorKey,
           routes: [
             GoRoute(
               path: favoritesPath,
@@ -95,7 +93,7 @@ class NavigationManager {
     );
   }
 
-  static GoRoute randomJoke() {
+  GoRoute _randomJoke() {
     return GoRoute(
       path: randomJokePath,
       pageBuilder: (context, state) {
