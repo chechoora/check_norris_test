@@ -1,6 +1,7 @@
 import 'package:check_norris_test/domain/joke/joke_api_source.dart';
 import 'package:check_norris_test/domain/joke/joke_db_source.dart';
 import 'package:check_norris_test/domain/model/joke_item.dart';
+import 'package:check_norris_test/domain/model/result.dart';
 import 'package:collection/collection.dart';
 
 class JokeRepository {
@@ -12,22 +13,30 @@ class JokeRepository {
     required this.jokeDbSource,
   });
 
-  Future<JokeItem> fetchRandomJokeByCategory(String category) async {
-    final storedJokes = await jokeDbSource.fetchSavedJokes();
-    final serverJoke = await jokeApiSource.fetchRandomJokeByCategory(category);
-    final storedJoke = storedJokes.firstWhereOrNull((joke) => joke.serverId == serverJoke.serverId);
-    return storedJoke ?? serverJoke;
+  Future<Result<JokeItem>> fetchRandomJokeByCategory(String category) async {
+    try {
+      final storedJokes = await jokeDbSource.fetchSavedJokes();
+      final serverJoke = await jokeApiSource.fetchRandomJokeByCategory(category);
+      final storedJoke = storedJokes.firstWhereOrNull((joke) => joke.serverId == serverJoke.serverId);
+      return DataResult(data: storedJoke ?? serverJoke);
+    } on Exception catch (e) {
+      return ErrorResult(message: e.toString());
+    }
   }
 
-  Future<List<JokeItem>> searchJokes(String text) async {
-    final storedJokes = await jokeDbSource.fetchSavedJokes();
-    final serverJokes = await jokeApiSource.searchJokes(text);
-    final finalList = <JokeItem>[];
-    for (var serverJoke in serverJokes) {
-      final storedJoke = storedJokes.firstWhereOrNull((joke) => joke.serverId == serverJoke.serverId);
-      finalList.add(storedJoke ?? serverJoke);
+  Future<Result<List<JokeItem>>> searchJokes(String text) async {
+    try {
+      final storedJokes = await jokeDbSource.fetchSavedJokes();
+      final serverJokes = await jokeApiSource.searchJokes(text);
+      final finalList = <JokeItem>[];
+      for (var serverJoke in serverJokes) {
+        final storedJoke = storedJokes.firstWhereOrNull((joke) => joke.serverId == serverJoke.serverId);
+        finalList.add(storedJoke ?? serverJoke);
+      }
+      return DataResult(data: finalList);
+    } on Exception catch (e) {
+      return ErrorResult(message: e.toString());
     }
-    return finalList;
   }
 
   Future<List<JokeItem>> fetchStoredJokes() {

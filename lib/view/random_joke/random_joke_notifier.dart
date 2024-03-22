@@ -1,6 +1,6 @@
-import 'package:check_norris_test/domain/joke/joke_favorite_listener.dart';
 import 'package:check_norris_test/domain/joke/joke_repository.dart';
 import 'package:check_norris_test/domain/model/joke_item.dart';
+import 'package:check_norris_test/domain/model/result.dart';
 import 'package:check_norris_test/view/random_joke/random_joke_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,15 +9,21 @@ class RandomJokeNotifier extends StateNotifier<RandomJokeState> {
     required this.category,
     required this.jokeRepository,
   }) : super(LoadingState()) {
-    _fetchRandomJoke();
+    fetchRandomJoke();
   }
 
   final String category;
   final JokeRepository jokeRepository;
 
-  Future<void> _fetchRandomJoke() async {
+  Future<void> fetchRandomJoke() async {
     state = LoadingState();
-    state = DataState(randomJoke: await jokeRepository.fetchRandomJokeByCategory(category));
+    final result = await jokeRepository.fetchRandomJokeByCategory(category);
+    switch (result) {
+      case ErrorResult<JokeItem>():
+        state = ErrorState();
+      case DataResult<JokeItem>():
+        state = DataState(randomJoke: result.data);
+    }
   }
 
   Future<void> addToFavorite(JokeItem joke) async {

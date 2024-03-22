@@ -1,6 +1,6 @@
 import 'package:check_norris_test/domain/model/category.dart';
 
-abstract class CategoryState {}
+sealed class CategoryState {}
 
 class LoadingState extends CategoryState {}
 
@@ -9,3 +9,5 @@ class DataState extends CategoryState {
 
   DataState({required this.categories});
 }
+
+class ErrorState extends CategoryState {}

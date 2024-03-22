@@ -1,6 +1,6 @@
 import 'package:check_norris_test/domain/model/joke_item.dart';
 
-abstract class RandomJokeState {}
+sealed class RandomJokeState {}
 
 class LoadingState extends RandomJokeState {}
 
@@ -9,3 +9,5 @@ class DataState extends RandomJokeState {
 
   DataState({required this.randomJoke});
 }
+
+class ErrorState extends RandomJokeState {}

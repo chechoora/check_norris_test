@@ -1,6 +1,6 @@
 import 'package:check_norris_test/domain/model/joke_item.dart';
 
-abstract class SearchState {}
+sealed class SearchState {}
 
 class IdleState extends SearchState {}
 
@@ -13,3 +13,5 @@ class DataState extends SearchState {
     required this.jokes,
   });
 }
+
+class ErrorState extends SearchState {}
