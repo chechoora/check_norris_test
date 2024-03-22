@@ -1,3 +1,4 @@
+import 'package:check_norris_test/domain/joke/joke_favorite_listener.dart';
 import 'package:check_norris_test/domain/joke/joke_repository.dart';
 import 'package:check_norris_test/domain/model/joke_item.dart';
 import 'package:check_norris_test/view/random_joke/random_joke_state.dart';

@@ -1,10 +1,16 @@
 import 'package:check_norris_test/data/database/database.dart';
+import 'package:check_norris_test/data/database/database_notifier.dart';
+import 'package:check_norris_test/data/database/joke/joke_table.dart';
 import 'package:check_norris_test/domain/model/joke_item.dart';
 
 class JokeDbService {
   final AppDatabase appDatabase;
+  final DatabaseNotifier databaseNotifier;
 
-  JokeDbService(this.appDatabase);
+  JokeDbService(
+    this.appDatabase,
+    this.databaseNotifier,
+  );
 
   Future<List<JokeTableData>> fetchSavedJokes() {
     return appDatabase.select(appDatabase.jokeTable).get();
@@ -17,6 +23,12 @@ class JokeDbService {
             value: joke.text,
           ),
         );
+    databaseNotifier.addOperation(
+      DatabaseOperationInfo(
+        table: (JokeTable).toString(),
+        operation: DatabaseOperation.insert,
+      ),
+    );
     return result != -1;
   }
 
@@ -28,6 +40,12 @@ class JokeDbService {
             ),
           ))
         .go();
+    databaseNotifier.addOperation(
+      DatabaseOperationInfo(
+        table: (JokeTable).toString(),
+        operation: DatabaseOperation.delete,
+      ),
+    );
     return result >= 0;
   }
 

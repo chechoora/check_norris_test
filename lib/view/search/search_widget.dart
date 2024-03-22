@@ -15,6 +15,7 @@ class SearchWidget extends ConsumerWidget {
   late final notifier = StateNotifierProvider.autoDispose<SearchNotifier, SearchState>((ref) {
     return SearchNotifier(
       jokeRepository: ref.read(jokeRepository),
+      favoriteListener: ref.read(jokeFavoriteListener),
     );
   });
 

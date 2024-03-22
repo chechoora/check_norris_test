@@ -12,6 +12,7 @@ class FavoriteWidget extends ConsumerWidget {
   late final notifier = StateNotifierProvider.autoDispose<FavoriteNotifier, FavoriteState>((ref) {
     return FavoriteNotifier(
       jokeRepository: ref.read(jokeRepository),
+      favoriteListener: ref.read(jokeFavoriteListener),
     );
   });
 
