@@ -1,16 +1,17 @@
 # check_norris_test
 
-A new Flutter project.
+A test project written in Flutter that showcases work with go_router, riverpod and other packages.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Download apk called app-release.apk to check the application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Categories](https://github.com/chechoora/check_norris_test/blob/main/readme_tools/categories.png?raw=true)
+
+![Categories](https://github.com/chechoora/check_norris_test/blob/main/readme_tools/search.png?raw=true)
+
+## Demo
+![Demo](https://github.com/chechoora/check_norris_test/blob/main/readme_tools/demo.gif?raw=true)
